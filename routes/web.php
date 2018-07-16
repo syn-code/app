@@ -1,6 +1,6 @@
 <?php
 
-use App\Task;
+//use App\Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +12,8 @@ use App\Task;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', 'PostsController@index');
 
 
 /*
@@ -30,22 +32,29 @@ use App\Task;
     ]);
 
 */
-Route::get('/task', function () {
+
+//this is a calling the controller and the method within the controller
+//as such, for showing all the resource, we noramlly call that method index.
+
+Route::get('/task', 'TasksConstroller@index');
+Route::get('/task/{task}', 'TasksConstroller@show');
+
+/* Route::get('/task', function () {
 
     //$task = DB::table('uploads')->get();
     //this is using eloquent and calling from the Uploads Model.
     $task = Task::all();
 
-    /*
-        if we want to test a database query from a route
-        laravel is smart enough to put it into a JSON format
-            - which can be useful for APIs
-        just return the $variable
-    */
+    
+      //  if we want to test a database query from a route
+      //  laravel is smart enough to put it into a JSON format
+      //      - which can be useful for APIs
+      //  just return the $variable
+
 
     
     return view('task.index', compact('task'));
-});
+}); */
 
 /*
     route(/task/{id}):
@@ -54,18 +63,18 @@ Route::get('/task', function () {
     - $task variable then handles the DB query to find the id
     - theview then is returned to show.blade.php and passing through the results of $task.
 */
-Route::get('/task/{id}', function ($id) {
+//Route::get('/task/{id}', function ($id) {
     /*
         note the get('/task/{id}) the curley braces counts as a wildcard in laravel
         then add the wild card id to the function ($id)
     */
 
     //$task = DB::table('uploads')->find($id);
-    $task = Task::find($id);
-    Task::incomplete();
+    //$task = Task::find($id);
+    //Task::incomplete();
     //dd($task);
-    return view('task.show', compact('task'));
-});
+    //return view('task.show', compact('task'));
+//});
 
 //about us route
 Route::get('about', function () {
